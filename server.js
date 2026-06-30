@@ -62,12 +62,25 @@ app.use((req, res) => {
 });
 
 // Start Server
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server running on: http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 8000;
+
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
 
 process.on("unhandledRejection", (err) => {
-  console.error(`Error: ${err.message}`);
-  process.exit(1);
+  console.error(err);
 });
+// const PORT = process.env.PORT || 8000;
+// app.listen(PORT, () => {
+//   console.log(`Server running on: http://localhost:${PORT}`);
+// });
+
+// process.on("unhandledRejection", (err) => {
+//   console.error(`Error: ${err.message}`);
+//   process.exit(1);
+// });
